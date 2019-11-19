@@ -13,20 +13,23 @@ class Database(object):
     def add_nodes(self, nodes):
         for new_node_id, parent_node_id in nodes:
             if parent_node_id:
-                self.__graph.add_child(parent_node_id, new_node_id)
+                self.__graph.add_node(parent_node_id, new_node_id)
             else:
                 print(
-                    "You can not add an other code node. \nInput should be : list(tuple(label_child_node, label_parent_node), ...)")
+                    """You can not add an other code node. 
+                    Input should be : list(tuple(label_child_node, label_parent_node), ...)"""
+                )
                 raise TypeError
 
     def add_extract(self, img_extracts: dict):
+        self.__graph.reset_state_node()
         for image, nodes_id in img_extracts.items():
             if image not in self.__dict_images:
                 self.__dict_images[image] = set()
             self.__dict_images[image].update(nodes_id)
 
     def get_extract_status(self):
-        out_status = {}
+        out_status = dict()
         for image, nodes_id in self.__dict_images.items():
             nodes_id = list(set(map(self.__img_status, nodes_id)))
             score = sum(nodes_id)
@@ -43,9 +46,16 @@ class Database(object):
         return out_status
 
     def __img_status(self, node_id):
-        if self.__graph.get_child(node_id) == -1:
+        if self.__graph.get_node(node_id) == -1:
             return Status.invalid.value
-        elif self.__graph.has_child(node_id):
+
+        parent_id = self.__graph.get_node(node_id).parent_id
+        if self.__graph.get_node(parent_id) != -1:
+            children = self.__graph.get_node(parent_id).children_ids
+            new_node_bool = any([self.__graph.get_node(child).new_node for child in children])
+            if new_node_bool:
+                return Status.coverage_staged.value
+        if self.__graph.has_child(node_id):
             return Status.granularity_staged.value
-        else:
-            return Status.valid.value
+
+        return Status.valid.value
