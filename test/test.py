@@ -1,11 +1,12 @@
 from src.directed_graph import DirGraph
 import unittest
 
+
 class DirectedGraphTest(unittest.TestCase):
     @staticmethod
     def build_graph():
         build = [("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C"), ("C2", "C")]
-        graph = DirGraph('core')
+        graph = DirGraph("core")
         for new_node, parent in build:
             graph.add_node(parent, new_node)
         return graph
@@ -52,11 +53,10 @@ class DirectedGraphTest(unittest.TestCase):
         state_node_2 = G.get_node("C").new_node
 
         # Test
-        self.assertEqual([ref_state_node_1, ref_state_node_2], [state_node_1, state_node_2])
+        self.assertEqual(
+            [ref_state_node_1, ref_state_node_2], [state_node_1, state_node_2]
+        )
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

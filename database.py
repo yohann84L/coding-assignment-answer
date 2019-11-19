@@ -52,7 +52,9 @@ class Database(object):
         parent_id = self.__graph.get_node(node_id).parent_id
         if self.__graph.get_node(parent_id) != -1:
             children = self.__graph.get_node(parent_id).children_ids
-            new_node_bool = any([self.__graph.get_node(child).new_node for child in children])
+            new_node_bool = any(
+                [self.__graph.get_node(child).new_node for child in children]
+            )
             if new_node_bool:
                 return Status.coverage_staged.value
         if self.__graph.has_child(node_id):

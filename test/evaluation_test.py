@@ -9,7 +9,13 @@ class EvaluationTest(unittest.TestCase):
         reference_status = {"img001": "granularity_staged", "img002": "valid"}
 
         # Initial graph
-        build = [("core", None), ("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C")]
+        build = [
+            ("core", None),
+            ("A", "core"),
+            ("B", "core"),
+            ("C", "core"),
+            ("C1", "C"),
+        ]
         # Extract
         extract = {"img001": ["A"], "img002": ["C1"]}
         # Graph edits
@@ -32,10 +38,20 @@ class EvaluationTest(unittest.TestCase):
 
     def test_evaluation_2(self):
         # Reference test
-        reference_status = {"img001": "granularity_staged", "img002": "coverage_staged", "img003": "invalid"}
+        reference_status = {
+            "img001": "granularity_staged",
+            "img002": "coverage_staged",
+            "img003": "invalid",
+        }
 
         # Initial graph
-        build = [("core", None), ("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C")]
+        build = [
+            ("core", None),
+            ("A", "core"),
+            ("B", "core"),
+            ("C", "core"),
+            ("C1", "C"),
+        ]
         # Extract
         extract = {"img001": ["A", "B"], "img002": ["A", "C1"], "img003": ["B", "E"]}
         # Graph edits
@@ -61,11 +77,11 @@ class EvaluationTest(unittest.TestCase):
         reference_status = read_json("../data/expected_status.json")
 
         # Initial graph
-        build = read_json('../data/graph_build.json')
+        build = read_json("../data/graph_build.json")
         # Extract
-        extract = read_json('../data/img_extract.json')
+        extract = read_json("../data/img_extract.json")
         # Graph edits
-        edits = read_json('../data/graph_edits.json')
+        edits = read_json("../data/graph_edits.json")
 
         # Get status (this is only an example, test your code as you please as long as it works)
         status = {}
@@ -82,5 +98,6 @@ class EvaluationTest(unittest.TestCase):
             status = db.get_extract_status()
         self.assertEqual(status, reference_status)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

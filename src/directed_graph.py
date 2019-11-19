@@ -1,5 +1,6 @@
 from collections import defaultdict
 
+
 class Node:
     def __init__(self, parent_id: str, node_id: str):
         self.__parent_id = parent_id
@@ -30,13 +31,14 @@ class Node:
     def add_child(self, child_id: str):
         self.__children_ids.add(child_id)
 
+
 class DirGraph:
     def __init__(self, node_id: str):
         self.__node_list = set()
         self.__node_list.add(node_id)
 
         self.__graph = defaultdict(Node)
-        self.__graph[node_id] = Node('null', node_id)
+        self.__graph[node_id] = Node("null", node_id)
 
     @property
     def graph(self):
