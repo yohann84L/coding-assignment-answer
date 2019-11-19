@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class Status(Enum):
-    INVALID = "invalid"
-    VALID = "valid"
-    GRANULARITY_STAGED = "granularity_staged"
-    COVERAGE_STAGED = "coverage_staged"
+    invalid = 1000
+    coverage_staged = 100
+    granularity_staged = 10
+    valid = 1

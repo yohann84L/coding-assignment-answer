@@ -55,5 +55,11 @@ class MyTestCase(unittest.TestCase):
             status = db.get_extract_status()
         self.assertEqual(status, reference_status)
 
+    def test_database(self):
+        build = [("core", None), ("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C")]
+        db = Database(build[0][0])
+        db.add_nodes(build[1:])
+        print(db)
+
 if __name__ == '__main__':
     unittest.main()

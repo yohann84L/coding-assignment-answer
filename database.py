@@ -1,21 +1,51 @@
 #!usr/bin/python
 # -*- coding: utf-8 -*-
+from src.directed_graph import DirGraph
+from src.status import Status
+from src.utils import int_size
 
 
 class Database(object):
+    def __init__(self, node_id_init: str):
+        self.__graph = DirGraph(node_id_init)
+        self.__dict_images = dict()
 
-	def __init__(self):
+    def add_nodes(self, nodes):
+        for new_node_id, parent_node_id in nodes:
+            if parent_node_id:
+                self.__graph.add_child(parent_node_id, new_node_id)
+            else:
+                print(
+                    "You can not add an other code node. \nInput should be : list(tuple(label_child_node, label_parent_node), ...)")
+                raise TypeError
 
-		raise NotImplementedError
+    def add_extract(self, img_extracts: dict):
+        for image, nodes_id in img_extracts.items():
+            if image not in self.__dict_images:
+                self.__dict_images[image] = set()
+            self.__dict_images[image].update(nodes_id)
 
-	def add_nodes(self):
+    def get_extract_status(self):
+        out_status = {}
+        for image, nodes_id in self.__dict_images.items():
+            nodes_id = list(set(map(self.__img_status, nodes_id)))
+            score = sum(nodes_id)
+            if int_size(score) == 4:
+                out_status[image] = Status.invalid.name
+            elif int_size(score) == 3:
+                out_status[image] = Status.coverage_staged.name
+            elif int_size(score) == 2:
+                out_status[image] = Status.granularity_staged.name
+            elif int_size(score) == 1:
+                out_status[image] = Status.valid.name
+            else:
+                out_status[image] = "Status not found"
+        return out_status
 
-		raise NotImplementedError
-
-	def add_extract(self):
-
-		raise NotImplementedError
-
-	def get_extract_status(self):
-
-		raise NotImplementedError
+    def __img_status(self, node_id):
+        if self.__graph.get_child(node_id) == -1:
+            return Status.invalid.value
+        elif self.__graph.has_child(node_id):
+            return Status.granularity_staged.value
+        else:
+            return Status.valid.value
