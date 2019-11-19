@@ -114,7 +114,7 @@ Lastly, the `get_extract_status` method will return the status of each data samp
 Here is an input example
 
 ```python
-from database import Database
+from src.database import Database
 
 # Initial graph
 build = [("core", None), ("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C")]
@@ -154,7 +154,7 @@ should return
 Here is an another example
 
 ```python
-from database import Database
+from src.database import Database
 
 # Initial graph
 [("core", None), ("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C")]

@@ -1,10 +1,15 @@
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 import unittest
 
-from database import Database
+from src.database import Database
 from src.utils import read_json
 
 
 class EvaluationTest(unittest.TestCase):
+    """
+    This class contains test methods to test the extraction of status from handmade graph and from json.
+    """
     def test_evaluation_1(self):
         # Reference test
         reference_status = {"img001": "granularity_staged", "img002": "valid"}
@@ -35,6 +40,8 @@ class EvaluationTest(unittest.TestCase):
             db.add_nodes(edits)
             # Update status
             status = db.get_extract_status()
+
+        # Test if the status are the same, if yes, process is done correctly
         self.assertEqual(status, reference_status)
 
     def test_evaluation_2(self):
@@ -71,6 +78,8 @@ class EvaluationTest(unittest.TestCase):
             db.add_nodes(edits)
             # Update status
             status = db.get_extract_status()
+
+        # Test if the status are the same, if yes, process is done correctly
         self.assertEqual(status, reference_status)
 
     def test_evaluation_json(self):
@@ -97,6 +106,8 @@ class EvaluationTest(unittest.TestCase):
             db.add_nodes(edits)
             # Update status
             status = db.get_extract_status()
+
+        # Test if the status are the same, if yes, process is done correctly
         self.assertEqual(status, reference_status)
 
 

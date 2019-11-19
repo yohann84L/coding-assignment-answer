@@ -1,18 +1,26 @@
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 import unittest
 
-from src.directed_graph import DirGraph
+from src.directed_graph import DirectedGraph
 
 
 class DirectedGraphTest(unittest.TestCase):
     @staticmethod
     def build_graph():
+        """
+        Function to build a graph in order to make some test
+        """
         build = [("A", "core"), ("B", "core"), ("C", "core"), ("C1", "C"), ("C2", "C")]
-        graph = DirGraph("core")
+        graph = DirectedGraph("core")
         for new_node, parent in build:
             graph.add_node(parent, new_node)
         return graph
 
     def test_get_children(self):
+        """
+        Method to test the function get_children()
+        """
         # Reference
         ref_children = {"C1", "C2"}
 
@@ -23,6 +31,9 @@ class DirectedGraphTest(unittest.TestCase):
         self.assertEqual(ref_children, children)
 
     def test_has_child_true(self):
+        """
+        Method to test the function has_child()
+        """
         # Reference
         ref_has_child = True
 
@@ -33,6 +44,9 @@ class DirectedGraphTest(unittest.TestCase):
         self.assertEqual(ref_has_child, children)
 
     def test_has_child_false(self):
+        """
+        Method to test the function has_child()
+        """
         # Reference
         ref_has_child = False
 
@@ -43,6 +57,9 @@ class DirectedGraphTest(unittest.TestCase):
         self.assertEqual(ref_has_child, children)
 
     def test_reset_state_node(self):
+        """
+        Method to test the function reset_state_node()
+        """
         # Reference
         ref_state_node_1 = True
         ref_state_node_2 = False

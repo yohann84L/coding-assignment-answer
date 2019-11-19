@@ -1,55 +1,11 @@
+#!usr/bin/python
+# -*- coding: utf-8 -*-
 from collections import defaultdict
 
 
-class Node:
+class DirectedGraph:
     """
-    Class Node: Define a node in a graph, contain parent, children and a boolean to know at $t'$ if the node is a new node.
-
-    Arguments:
-    ----------
-        - parent_id (str): id of the parent
-        - node_id (str): id of the node
-    """
-
-    def __init__(self, parent_id: str, node_id: str):
-        self.__parent_id = parent_id
-        self.__node_id = node_id
-        self.__children_ids = set()
-        self.__new_node = True
-
-    @property
-    def children_ids(self):
-        return self.__children_ids
-
-    @property
-    def parent_id(self):
-        return self.__parent_id
-
-    @property
-    def node_id(self):
-        return self.__node_id
-
-    @property
-    def new_node(self):
-        return self.__new_node
-
-    @new_node.setter
-    def new_node(self, new_node: bool):
-        self.__new_node = new_node
-
-    def add_child(self, child_id: str):
-        """
-        Method to add a child to the self node.
-        Argument:
-        ---------
-            - child_id (str): id of the child to add
-        """
-        self.__children_ids.add(child_id)
-
-
-class DirGraph:
-    """
-    DirGraph class: Define a Directed Graph, containing a list with all unique node in the graph and all Node (object).
+    DirectedGraph class: Define a Directed Graph, containing a list with all unique node in the graph and all Node (object).
     Argument:
     ---------
         - node_id (str): id of the first (top) node
@@ -135,3 +91,49 @@ class DirGraph:
         """
         for node_id in self.__graph.keys():
             self.__graph[node_id].new_node = False
+
+
+class Node:
+    """
+    Class Node: Define a node in a graph, contain parent, children and a boolean to know at $t'$ if the node is a new node.
+
+    Arguments:
+    ----------
+        - parent_id (str): id of the parent
+        - node_id (str): id of the node
+    """
+
+    def __init__(self, parent_id: str, node_id: str):
+        self.__parent_id = parent_id
+        self.__node_id = node_id
+        self.__children_ids = set()
+        self.__new_node = True
+
+    @property
+    def children_ids(self):
+        return self.__children_ids
+
+    @property
+    def parent_id(self):
+        return self.__parent_id
+
+    @property
+    def node_id(self):
+        return self.__node_id
+
+    @property
+    def new_node(self):
+        return self.__new_node
+
+    @new_node.setter
+    def new_node(self, new_node: bool):
+        self.__new_node = new_node
+
+    def add_child(self, child_id: str):
+        """
+        Method to add a child to the self node.
+        Argument:
+        ---------
+            - child_id (str): id of the child to add
+        """
+        self.__children_ids.add(child_id)
