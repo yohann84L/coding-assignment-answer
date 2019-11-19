@@ -1,6 +1,7 @@
 import unittest
-from src.utils import read_json
+
 from database import Database
+from src.utils import read_json
 
 
 class EvaluationTest(unittest.TestCase):
